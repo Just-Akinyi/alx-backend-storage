@@ -1,19 +1,8 @@
--- creates tables
--- Create the countries table
-CREATE TABLE IF NOT EXISTS countries (
-    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    code CHAR(2) NOT NULL UNIQUE
-);
-
--- Insert the valid country codes into the countries table
-INSERT INTO countries (code)
-VALUES ('US'), ('CO'), ('TN');
-
--- Create the users table
-CREATE TABLE IF NOT EXISTS users (
+-- Creates a table with unique users.
+DROP TABLE IF EXISTS users;
+CREATE TABLE users (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     email VARCHAR(255) NOT NULL UNIQUE,
-    name VARCHAR(255) NOT NULL,
-    country_id INT NOT NULL,
-    FOREIGN KEY (country_id) REFERENCES countries(id)
+    name VARCHAR(255),
+    country CHAR(2) NOT NULL DEFAULT 'US' CHECK (country IN ('US', 'CO', 'TN'))
 );
